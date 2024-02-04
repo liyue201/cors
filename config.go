@@ -38,6 +38,10 @@ var (
 )
 
 func NewCors(config Config) *cors {
+	return newCors(config)
+}
+
+func newCors(config Config) *cors {
 	if err := config.Validate(); err != nil {
 		panic(err.Error())
 	}
@@ -60,6 +64,10 @@ func NewCors(config Config) *cors {
 }
 
 func (cors *cors) ApplyCors(c *gin.Context) {
+	cors.applyCors(c)
+}
+
+func (cors *cors) applyCors(c *gin.Context) {
 	origin := c.Request.Header.Get("Origin")
 	if len(origin) == 0 {
 		// request is not a CORS request
